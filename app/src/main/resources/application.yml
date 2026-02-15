@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+vertex-ai:
+  project-id: ${GCP_PROJECT_ID:your-project-id}
+  location: ${GCP_LOCATION:europe-west1}
+
+compactor:
+  token-threshold: 200
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
