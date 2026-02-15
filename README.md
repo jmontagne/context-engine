@@ -98,14 +98,14 @@ context-engine/
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Runtime | Java 21 |
-| Framework | Spring Boot 3.4 + LangChain4j |
-| LLM Provider | Google Vertex AI (Gemini 2.5 Pro + 2.0 Flash) |
-| Deployment | Cloud Run (scale-to-zero, pay-per-request) |
-| Infrastructure | Terraform (GCP provider) |
-| Container | Docker (Eclipse Temurin 21 Alpine) |
+| Layer | Technology | What it does |
+|-------|-----------|--------------|
+| Runtime | Java 21 | Long-term support JDK with virtual threads and modern language features |
+| Framework | Spring Boot 3.4 + LangChain4j | Spring Boot = production-ready web framework. LangChain4j = Java SDK for LLM orchestration (model calls, chaining, abstraction over providers) |
+| LLM Provider | Google Vertex AI (Gemini 2.5 Pro + 2.0 Flash) | Vertex AI = Google's managed ML platform. Gemini = Google's LLM family. Pro = high-quality reasoning. Flash = fast and cheap for preprocessing |
+| Deployment | Cloud Run | Google's serverless container platform. Scales to zero (no cost when idle), auto-scales on traffic, pay-per-request |
+| Infrastructure | Terraform | Infrastructure as Code tool. Defines all GCP resources (Cloud Run, IAM, APIs) in declarative `.tf` files — reproducible, version-controlled |
+| Container | Docker (Eclipse Temurin 21 Alpine) | Lightweight container image (~130MB). Temurin = open-source JDK distribution. Alpine = minimal Linux base |
 
 ## API Reference
 
