@@ -14,20 +14,36 @@ As agentic systems grow, so does the conversation history. Sending 10k+ tokens o
 
 A two-stage inference pipeline:
 
-```
-User Query + History
-        │
-        ▼
-┌─────────────────────┐
-│  Context Compactor   │  ← Gemini 2.0 Flash (cheap, fast)
-│  Summarize history   │     Strips noise, preserves decisions
-└────────┬────────────┘
-         │ compressed context
-         ▼
-┌─────────────────────┐
-│  Inference Model     │  ← Gemini 2.5 Pro (smart, expensive)
-│  Answer the query    │     Receives only essential context
-└─────────────────────┘
+```mermaid
+graph TD
+    subgraph Client_Layer [User Interaction]
+        U[User Query]
+        H[(Raw Chat History)]
+    end
+
+    subgraph Context_Engine [Optimization Pipeline]
+        CC{Context Compactor}
+        M1[[Gemini 2.0 Flash]]
+
+        U --> CC
+        H --> CC
+        M1 -.->|Low Latency / High Speed| CC
+    end
+
+    subgraph Inference_Layer [Reasoning]
+        IM[Inference Model]
+        M2[[Gemini 2.5 Pro]]
+
+        CC -->|Compressed Context + Signal| IM
+        M2 -.->|High Intelligence / High Cost| IM
+    end
+
+    IM --> R[Final Response]
+    R -->|Append| H
+
+    style M1 fill:#f9f,stroke:#333,stroke-width:2px
+    style M2 fill:#bbf,stroke:#333,stroke-width:2px
+    style CC stroke-dasharray: 5 5
 ```
 
 The Compactor fires **only when history exceeds a configurable token threshold** — short conversations go straight to Pro with zero overhead.
